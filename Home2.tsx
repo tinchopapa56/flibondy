@@ -1,7 +1,11 @@
-import { Flex, Image, Container, Heading, Stack, Text, Button, Icon, IconProps,} from '@chakra-ui/react';
+// @ts-nocheck comment 
+import { Flex, Image, Container, Heading, Stack, Text, Button, Icon, IconProps, Grid, GridItem, Spinner,} from '@chakra-ui/react';
 import { Flight } from './types';
 
+import { useToast } from '@chakra-ui/react'
+
 import Link from 'next/link'
+import { useState } from 'react';
   
 interface Props {
   origins: Flight["origin"][]
@@ -9,9 +13,12 @@ interface Props {
   const Home2:React.FC<Props> = ({origins}) => {
   // const Home2 = () => {
     const I1 = "https://gallery-cdn.breezy.hr/87ea76b4-b258-455d-824f-9dd0a6955fb3/FB-Atardecer 1.jpg"
+    const toast = useToast()
+    const  [loading, setLoading] = useState(false);
+
     return (
-        <>
-        <Container maxW={'5xl'}>
+      <>
+        <Container maxW={'6xl'}>
           <Stack
             textAlign={'center'}
             align={'center'}
@@ -26,18 +33,22 @@ interface Props {
                 Front-End Challenge
               </Text>
             </Heading>
-            <Text color={'gray.500'} maxW={'3xl'}>
-              Never miss a meeting. Never be late for one too. Keep track of your
-              meetings and receive smart reminders in appropriate times. Read your
-              smart “Daily Agenda” every morning.
+            <Text color={'gray.500'} maxW={'2xl'}>
+              Front End challenge using Next.Js & Typescript.<br />
+              Que viajes puedo hacer con $800 (ida y vuelta).  
+              Tampoco tengo problema cuántos días irme ni cuándo.<br /> Mi mayor restricción es la plata. 
+              Filtrar por fechas 
             </Text>
 
-            <Stack spacing={6} direction={'row'}>
+          {loading && <Spinner />} 
 
+          <Stack spacing={6} direction={'row'}>
+            <Grid templateColumns='repeat(5, 1fr)' gap={6}>
               {origins.map( origin => (
-                <Link key={origin} href={`/${origin}`}>
-                  <span>
-                    <Button 
+                <GridItem key={origin} w='100%' h='10'>
+                  <Link key={origin} href={`/${origin}`}>
+                    <Button onClick={() =>
+                      setLoading(true)}
                       rounded={'full'}
                       px={6}
                       colorScheme={'orange'}
@@ -45,23 +56,16 @@ interface Props {
                       _hover={{ bg: 'orange.500' }} as="h2"
                     >
                       {origin} &rarr;</Button>
-                  </span>
-                </Link>
+                  </Link>
+                </GridItem>
               ))}
+            </Grid>
 
-            </Stack>
+          </Stack>
 
-            <Flex w={'full'}>
-              <Illustration
-                height={{ sm: '24rem', lg: '28rem' }}
-                mt={{ base: 12, sm: 16 }}
-              />
-              {/* <Image src={I1} height={{ sm: '24rem', lg: '28rem' }}
-                mt={{ base: 12, sm: 16 }}/> */}
-            </Flex>
           </Stack>
         </Container>
-        </>
+      </>
     );
   }
   export default Home2;
