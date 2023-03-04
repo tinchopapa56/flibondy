@@ -46,6 +46,7 @@ const Api = {
 
             }
             console.log(trips)
+            trips.slice()
             return trips;
         }
     },

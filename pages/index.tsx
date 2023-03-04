@@ -7,6 +7,10 @@ import {Flight, Trip} from "../types"
 import { GetStaticProps } from 'next'
 import Api from '../api'
 
+import { Flex, Container, Heading, Stack, Text, Button, Icon, IconProps,} from '@chakra-ui/react';
+import Home2 from '../Home2'
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 type Props = {
@@ -25,19 +29,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 }
 
 const Home: NextPage<Props> = ({origins}) => {
-  console.log(origins)
   
-  return (
-    <div className={styles.grid}>
-      {origins.map( origin => (
-        <Link key={origin} href={`/${origin}`}>
-          <span className={styles.card}>
-            <h2>{origin} &rarr;</h2>
-          </span>
-        </Link>
-      ))}
-    </div>
-  )
+  return <Home2 origins={origins}/> 
 }
 
 export default Home

@@ -19,9 +19,9 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({params}) =>
 
   return {
     props: {
-      trips: trips.slice(0,trips.length/2), //Half of all options
+      // trips: trips.slice(0,trips.length/128), //quarter of all options
       // trips: trips,
-      // trips: trips.slice(0,100)
+      trips: trips.slice(0,100)
     }
   }
 }
@@ -43,7 +43,6 @@ const OriginPage: React.FC<Props> = ({trips}) => {
   .slice(0,paging)
   ,[sort,trips, paging])
 
-
   const checkpoint = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -53,6 +52,7 @@ const OriginPage: React.FC<Props> = ({trips}) => {
       }
     });
 
+    if(checkpoint.current)
     observer.observe(checkpoint.current);
 
     return () => {
